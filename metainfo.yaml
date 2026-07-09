@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: BSD-2-Clause
+# SPDX-FileCopyrightText: SonicDE
+
+description: QMK VIA HID keyboard protocol library
+tier: 1
+type: functional
+platforms:
+    - name: Linux
+    - name: FreeBSD
+    - name: Windows
+    - name: macOS
+    - name: Android
+    - name: iOS
+portingAid: false
+deprecated: false
+release: true
+libraries:
+    - cmake: "SonicVia::SonicVia"
+cmakename: SonicVia
+
+public_lib: true
+group: Frameworks
+subgroup: Tier 1
