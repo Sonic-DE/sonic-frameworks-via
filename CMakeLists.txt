@@ -3,7 +3,7 @@
 
 cmake_minimum_required(VERSION 3.21)
 
-project(SonicVia VERSION 6.27.0 LANGUAGES CXX)
+project(SonicVia VERSION 6.28.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -15,7 +15,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # ECM discovery (provides all KDE/ECM modules used below).
 include(FeatureSummary)
-find_package(ECM 6.26.0 REQUIRED NO_MODULE)
+find_package(ECM 6.28.0 REQUIRED NO_MODULE)
 set_package_properties(ECM PROPERTIES
     TYPE REQUIRED
     DESCRIPTION "Extra CMake Modules."
