@@ -14,8 +14,7 @@ QVector<ViaKeyboardInfo> ViaDiscovery::discoverViaKeyboards()
     QVector<ViaKeyboardInfo> keyboards;
 
     // VIA keyboards expose usage page 0xff60. hid_enumerate filters by USB vendor/product id,
-    // so enumerate everything (0/0) and filter on usage_page ourselves, matching the Rust
-    // scan_keyboards() behavior.
+    // so enumerate everything (0/0) and filter on usage_page ourselves.
     constexpr unsigned short kViaUsagePage = 0xff60;
 
     hid_device_info *enumeration = hid_enumerate(0x00, 0x00);

@@ -1,0 +1,37 @@
+# SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
+# SPDX-FileCopyrightText: SonicDE
+
+include($KDE_DOCS/global/qt-module-defaults.qdocconf)
+
+project = SonicVia
+description = Lighting control for QMK keyboards over the VIA protocol
+
+documentationinheaders = true
+
+headerdirs += . via
+sourcedirs += . via
+
+outputformats = HTML
+
+navigation.landingpage = "Sonic VIA"
+
+depends += \
+    kde \
+    qtcore \
+    qtgui
+
+qhp.projects            = SonicVia
+
+qhp.SonicVia.file                = sonicvia.qhp
+qhp.SonicVia.namespace           = org.sonicde.sonicvia.$QT_VERSION_TAG
+qhp.SonicVia.virtualFolder       = sonicvia
+qhp.SonicVia.indexTitle          = Sonic VIA
+qhp.SonicVia.indexRoot           =
+
+qhp.SonicVia.subprojects         = classes
+qhp.SonicVia.subprojects.classes.title = C++ Classes
+qhp.SonicVia.subprojects.classes.indexTitle = Sonic VIA C++ Classes
+qhp.SonicVia.subprojects.classes.selectors = class fake:headerfile
+qhp.SonicVia.subprojects.classes.sortPages = true
+
+tagfile = sonicvia.tags

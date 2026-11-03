@@ -38,6 +38,7 @@ kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT)
 include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 
 include(ECMGenerateExportHeader)
+include(ECMGenerateQDoc)
 include(ECMSetupVersion)
 include(ECMQtDeclareLoggingCategory)
 include(CMakePackageConfigHelpers)

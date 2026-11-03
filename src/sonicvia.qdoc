@@ -1,0 +1,11 @@
+// SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
+// SPDX-FileCopyrightText: SonicDE
+
+/*!
+    \module SonicVia
+    \title Sonic VIA C++ Classes
+    \ingroup modules
+    \cmakepackage SonicVia
+
+    \brief Lighting control for QMK keyboards over the VIA protocol.
+*/
