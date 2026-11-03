@@ -4,17 +4,16 @@
 # SonicVia
 
 A standalone C++17/20 library implementing the QMK [VIA](https://www.caniusevia.com/) HID
-keyboard protocol for RGB lighting control. Provides a drop-in replacement for the
-`qmk-via-api` Rust crate, intended for use by the SonicDE D-Bus QMK helper.
+keyboard protocol for RGB lighting control.
 
 ## Features
 
 - Pure enumeration of VIA keyboards (HID usage page `0xff60`) via `ViaDiscovery`.
 - Single-device blocking HID access via `ViaDevice` (hidraw backend on Linux).
 - Protocol-version-aware command encoding (VIA V3 ≥ 11 + legacy < 11).
-- Single-byte HSV color conversion from `QColor`, matching the Rust helper's scaling.
-- `applyColor(QColor)` mirrors the Rust helper's RGB-Matrix → RGB-Light fallback.
-- `hasLightingSupport()` mirrors the Rust helper's `has_devices` predicate.
+- Single-byte HSV color conversion from `QColor`.
+- `applyColor(QColor)` sets the color through RGB Matrix, falling back to RGB Light.
+- `hasLightingSupport()` tells whether either lighting channel responds.
 - Stub build when hidapi is unavailable (`HAVE_VIA_SUPPORT` undefined).
 
 ## Requirements
@@ -58,9 +57,3 @@ target_link_libraries(myapp PRIVATE SonicVia::SonicVia)
 Licensed under the GNU Lesser General Public License 2.1 or later, the GNU Lesser General
 Public License 3.0 only, or the KDE-Accepted LGPL. See [LICENSES/](LICENSES/) for the full
 license texts.
-
-## Acknowledgements
-
-Protocol implementation verified against
-[`qmk-via-api`](https://crates.io/crates/qmk-via-api) 0.7.0, the Rust crate the original
-D-Bus helper depends on.

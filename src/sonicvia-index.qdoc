@@ -1,0 +1,40 @@
+// SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
+// SPDX-FileCopyrightText: SonicDE
+
+/*!
+    \page sonicvia-index.html
+    \title Sonic VIA
+
+    Sonic VIA implements the QMK \l{https://www.caniusevia.com/}{VIA} HID
+    keyboard protocol for RGB lighting control.
+
+    \list
+    \li \l ViaDiscovery lists VIA keyboards (HID usage page 0xff60) without
+        opening them.
+    \li \l ViaDevice gives blocking access to one keyboard.
+    \li \l ViaProtocol sends the lighting commands, encoded for the device's
+        protocol version (VIA V3, 11 and later, or legacy).
+    \li \l ViaCommand builds single VIA commands.
+    \endlist
+
+    Without hidapi at build time, the library is a stub: discovery finds no
+    keyboards and devices don't open.
+
+    \section1 Using the Module
+
+    \section2 Building with CMake
+
+    Use the \c find_package() command to locate the SonicVia package and link
+    against its target:
+
+    \badcode
+    find_package(SonicVia REQUIRED)
+    target_link_libraries(mytarget PRIVATE SonicVia::SonicVia)
+    \endcode
+
+    \section1 API Reference
+
+    \list
+        \li \l{Sonic VIA C++ Classes}
+    \endlist
+*/

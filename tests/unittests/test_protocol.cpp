@@ -97,9 +97,8 @@ void TestViaProtocol::testHasLightingSupportMatrix()
     QVERIFY(p.hasLightingSupport());
 }
 
-// has_devices is more lenient than apply_color: matrix unsupported, but rgblight responds even
-// with effect 0 (lighting disabled) → support still true. Rust has_devices uses .is_ok()
-// (channel reachable), apply_color uses effect>0 (in use).
+// hasLightingSupport() is more lenient than applyColor(): matrix unsupported, but rgblight
+// responds even with effect 0 (lighting disabled) → support still true.
 void TestViaProtocol::testHasLightingSupportRgblightEffectZero()
 {
     MockViaDevice dev(QStringLiteral("/dev/hidraw0"));
@@ -125,7 +124,7 @@ void TestViaProtocol::testHasLightingSupportNone()
 }
 
 // Legacy (protocol 9) SET color encoding: payload = [valueId(0x83 Color), hue, sat] — NO channel
-// byte, and the value id is 0x83 (legacy) not 0x04 (V3). Verified from qmk-via-api set_rgblight_color.
+// byte, and the value id is 0x83 (legacy) not 0x04 (V3).
 void TestViaProtocol::testLegacySetColorEncoding()
 {
     MockViaDevice dev(QStringLiteral("/dev/hidraw0"));
@@ -141,7 +140,6 @@ void TestViaProtocol::testLegacySetColorEncoding()
 }
 
 // Legacy GET color: response value starts at index 2 (cmd, valueId, hue, sat), not index 3.
-// Verified from qmk-via-api get_rgblight_color legacy (val[2], val[3]).
 void TestViaProtocol::testLegacyGetColorOffset()
 {
     MockViaDevice dev(QStringLiteral("/dev/hidraw0"));

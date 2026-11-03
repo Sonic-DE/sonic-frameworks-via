@@ -70,6 +70,8 @@ if(HAVE_VIA_SUPPORT)
     target_compile_definitions(SonicVia PRIVATE HAVE_VIA_SUPPORT=1)
 endif()
 
+ecm_generate_qdoc(SonicVia sonicvia.qdocconf)
+
 install(TARGETS SonicVia
     EXPORT SonicViaTargets
     ${KF_INSTALL_TARGETS_DEFAULT_ARGS}

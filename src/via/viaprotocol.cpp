@@ -30,14 +30,13 @@ quint16 ViaProtocol::queryProtocolVersion(ViaDevice &device)
 quint8 ViaProtocol::valueIdByte(RgbValueId valueId) const
 {
     const quint8 v3 = static_cast<quint8>(valueId); // enum values are already 1..4 (V3 ids)
-    // Legacy ids 0x80..0x83 == 0x7F + v3_id (verified from qmk-via-api ViaLightingValue).
+    // Legacy ids 0x80..0x83 == 0x7F + v3_id.
     return (m_protocolVersion >= kProtocolV3) ? v3 : static_cast<quint8>(0x7F + v3);
 }
 
 bool ViaProtocol::setLightingValue(LightingChannel channel, RgbValueId valueId, const QByteArray &value)
 {
-    // Legacy protocol exposes only RGB Light (no matrix). Reject other channels without HID,
-    // matching qmk-via-api's early Err(UnsupportedFeature) gate.
+    // Legacy protocol exposes only RGB Light (no matrix). Reject other channels without HID.
     if (m_protocolVersion < kProtocolV3 && channel != LightingChannel::QmkRgblight) {
         qCWarning(SONICVIA) << "Channel" << static_cast<int>(channel) << "not available on legacy protocol" << m_protocolVersion;
         return false;
@@ -97,8 +96,7 @@ bool ViaProtocol::getLightingValue(LightingChannel channel, RgbValueId valueId, 
         return false;
     }
     // Value offset depends on protocol: V3 response = [cmdId, channel, valueId, value...] (index 3);
-    // legacy response = [cmdId, valueId, value...] (index 2). Verified from qmk-via-api
-    // (get_rgblight_color V3 uses val[3]/val[4], legacy uses val[2]/val[3]).
+    // legacy response = [cmdId, valueId, value...] (index 2).
     const int valueOffset = (m_protocolVersion >= kProtocolV3) ? 3 : 2;
     if (response.size() < valueOffset + 1) {
         qCWarning(SONICVIA) << "Response too short:" << response.size();
@@ -156,7 +154,6 @@ ViaHsv ViaProtocol::hsvFromColor(const QColor &color)
     color.getHsvF(&hueF, &satF, &valF);
 
     ViaHsv out;
-    // Matches the Rust helper: hue_deg/360*255 == hueF*255 (hueF == hue_deg/360).
     out.hue = (hueF < 0.0f) ? quint8(0) : static_cast<quint8>(hueF * 255.0f);
     out.saturation = static_cast<quint8>(satF * 255.0f);
     out.brightness = static_cast<quint8>(valF * 255.0f);
@@ -170,7 +167,7 @@ bool ViaProtocol::applyColor(const QColor &color)
         return false;
     }
 
-    // RGB Matrix first: supported when effect > 0 (matches qmk-via-api/get_rgb_matrix_effect).
+    // RGB Matrix first: supported when effect > 0.
     quint8 matrixEffect = 0;
     if (getEffect(LightingChannel::QmkRgbMatrix, matrixEffect) && matrixEffect > 0) {
         if (!setColor(LightingChannel::QmkRgbMatrix, hsv.hue, hsv.saturation)) {
@@ -204,9 +201,7 @@ bool ViaProtocol::applyColor(const QColor &color)
 
 bool ViaProtocol::hasLightingSupport()
 {
-    // Matches Rust has_devices(): rgblight.is_ok() || matrix.is_ok(). "ok" means the channel
-    // responded with a value (not 0xFF / not empty) — the effect value itself is irrelevant here,
-    // which is why a device with lighting disabled (effect 0) still reports support.
+    // A channel that responds counts, whatever its effect: lighting disabled (effect 0) is still support.
     quint8 effect = 0;
     if (getEffect(LightingChannel::QmkRgbMatrix, effect)) {
         return true;
