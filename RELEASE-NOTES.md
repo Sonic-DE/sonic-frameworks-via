@@ -2,6 +2,10 @@
 
 Sonic Frameworks VIA lets SonicDE control the RGB lighting of keyboards that support the VIA standard.
 
+## 6.31.0.1 (2026-11-10)
+
+- Behind the scenes: its developer documentation now appears on the SonicDE website.
+
 ## 6.31.0 (2026-10-20)
 
 - Behind the scenes: version number updated for this release.
